@@ -50,7 +50,7 @@ em{font-family:var(--f-serif);font-style:italic;font-weight:300;letter-spacing:-
 /* Header */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:70;height:var(--hh);background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
 .top .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{text-decoration:none;color:var(--ink);font-weight:500;letter-spacing:.42em;font-size:.95rem;padding-left:.42em}
+.brand{display:block;color:var(--ink);line-height:0}
 .nav{display:flex;gap:30px;align-items:center}
 .nav a{color:var(--muted);text-decoration:none;font-size:.88rem;transition:color .5s}
 .nav a:hover{color:var(--ink)}
@@ -200,9 +200,20 @@ dialog.drawer[open]{animation:slideIn .9s var(--ease)}
 </head><!--std-->
 <body><!--std-->
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<clipPath id="wmclip"><rect x="-2" width="514" height="100"/></clipPath>
+<path id="selloCirc" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/>
+</defs>
+<symbol id="iso" viewBox="0 0 100 100"><g fill="currentColor"><path d="M14.00,33.00 L14.00,18.00 L15.50,18.00 L15.50,21.60 L18.50,21.60 L18.50,18.00 L21.50,18.00 L21.50,21.60 L24.50,21.60 L24.50,18.00 L27.50,18.00 L27.50,21.60 L30.50,21.60 L30.50,18.00 L33.50,18.00 L33.50,21.60 L36.50,21.60 L36.50,18.00 L39.50,18.00 L39.50,21.60 L42.50,21.60 L42.50,18.00 L45.50,18.00 L45.50,21.60 L48.50,21.60 L48.50,18.00 L51.50,18.00 L51.50,21.60 L54.50,21.60 L54.50,18.00 L57.50,18.00 L57.50,21.60 L60.50,21.60 L60.50,18.00 L63.50,18.00 L63.50,21.60 L66.50,21.60 L66.50,18.00 L69.50,18.00 L69.50,21.60 L72.50,21.60 L72.50,18.00 L75.50,18.00 L75.50,21.60 L78.50,21.60 L78.50,18.00 L81.50,18.00 L81.50,21.60 L84.50,21.60 L84.50,18.00 L86.00,18.00 L86.00,33.00 L57.00,33.00 L57,79 A7,7 0 0 1 43,79 L43,33 Z"/></g></symbol>
+<symbol id="wm" viewBox="0 0 512 100"><g fill="currentColor" clip-path="url(#wmclip)"><path d="M0,0 H72 V9 H40.5 V100 H31.5 V9 H0 Z" stroke="none"/><path d="M110.5,0 V100 M110.5,4.5 H144 A25,25 0 0 1 144,54.5 H110.5 M142,54.5 L172,100 M206,100 L238,4.5 H246 L278,100 M217.5,68 H266.5 M434,100 L466,4.5 H474 L506,100 M445.5,68 H494.5 M316.5,100 V4.5 L356,74 L395.5,4.5 V100" fill="none" stroke="currentColor" stroke-width="9" stroke-linejoin="miter" stroke-miterlimit="2.2"/></g></symbol>
+<symbol id="firmaH" viewBox="0 0 330 100"><use href="#iso" width="100" height="100"/><use href="#wm" x="138" y="32" width="192" height="38"/></symbol>
+<symbol id="firmaV" viewBox="0 0 260 200"><use href="#iso" x="80" y="0" width="100" height="100"/><use href="#wm" x="15" y="128" width="230" height="45.5"/><text x="130" y="196" text-anchor="middle" font-family="Hanken Grotesk, Helvetica, Arial, sans-serif" font-weight="500" font-size="10.5" letter-spacing="3.2" fill="currentColor">HERRAMIENTAS DE TERMINACIÓN</text></symbol>
+<symbol id="sello" viewBox="0 0 100 100"><circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width="1.1"/><circle cx="50" cy="50" r="29" fill="none" stroke="currentColor" stroke-width=".6"/><text font-family="Hanken Grotesk, Helvetica, Arial, sans-serif" font-weight="500" font-size="6.4" letter-spacing="2.15" fill="currentColor"><textPath href="#selloCirc" textLength="235" lengthAdjust="spacing">TRAMA · HERRAMIENTAS DE TERMINACIÓN ·</textPath></text><use href="#iso" x="32" y="32" width="36" height="36"/></symbol>
+</svg>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#inicio" aria-label="TRAMA, inicio">TRAMA</a>
+    <a class="brand" href="#inicio" aria-label="TRAMA, inicio"><svg viewBox="0 0 330 100" width="116" height="35" aria-hidden="true"><use href="#firmaH"/></svg></a>
     <nav class="nav" aria-label="Secciones">
       <a href="#coleccion">Colección</a>
       <a class="opt" href="#texturas">Texturas</a>

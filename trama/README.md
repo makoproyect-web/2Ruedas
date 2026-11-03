@@ -25,3 +25,9 @@ La web no menciona procesos de fabricación ni origen: habla de problemas y solu
 - Piezas: array `PRODUCTS` dentro de `index.html`.
 - Soluciones: array `SOLUTIONS`. Texturas: array `TEXTURES`.
 - Contacto: WhatsApp e Instagram marcados "(a definir)".
+
+## Identidad (carpeta `marca/`)
+
+- `identidad.html`: manual de marca (concepto, logo, construcción, usos, colores, tipografía, texturas, aplicaciones y voz).
+- Logos en SVG: isotipo, logotipo, firma horizontal y vertical, en grafito y en yeso sobre grafito.
+- Concepto: la T de TRAMA es una llana dada vuelta. La placa con su dentado de doce dientes queda arriba y el mango forma el trazo vertical.
