@@ -1,0 +1,946 @@
+<!doctype html><!--std-->
+<html lang="es"><!--std-->
+<head><!--std-->
+<meta charset="utf-8"><!--std-->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><!--std-->
+<title>TRAMA Herramientas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Llanas, espátulas y accesorios de terminación para pintores, yeseros y albañiles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..600&family=Newsreader:ital,opsz,wght@1,6..72,300..400&display=swap">
+<style>
+/* Layout: galería de taller. Escenas a pantalla completa que avanzan con el scroll, colección en grilla sobria, mucho aire. Tema único claro: yeso, grafito, acero y bronce. */
+:root{
+  --bg:#EDECE8;        /* yeso a la cal */
+  --paper:#F6F5F2;
+  --tile:#E3E1DB;
+  --ink:#191A1B;       /* grafito */
+  --muted:#6A6862;
+  --line:rgba(25,26,27,.13);
+  --bronze:#8C6A44;
+  --deep:#1B1C1D;
+  --on-deep:#ECEBE7;
+  --f-sans:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --ease:cubic-bezier(.19,.8,.22,1);
+  --hh:64px;
+  --top:calc(env(safe-area-inset-top,0px) + var(--hh));
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--f-sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:80;background:var(--bg)}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit}
+h1,h2,h3{margin:0;font-weight:300;text-wrap:balance}
+p{margin:0}
+em{font-family:var(--f-serif);font-style:italic;font-weight:300;letter-spacing:-.01em}
+:focus-visible{outline:1px solid var(--ink);outline-offset:4px}
+.wrap{max-width:1320px;margin-inline:auto;padding-left:max(20px, env(safe-area-inset-left,0px));padding-right:max(20px, env(safe-area-inset-right,0px))}
+@media (min-width:800px){.wrap{padding-left:max(48px, env(safe-area-inset-left,0px));padding-right:max(48px, env(safe-area-inset-right,0px))}}
+.label{font-size:.72rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.link{border:0;background:none;padding:0 0 3px;cursor:pointer;font-size:.9rem;font-weight:500;letter-spacing:.02em;border-bottom:1px solid currentColor;text-decoration:none;color:inherit;transition:opacity .5s}
+.link:hover{opacity:.6}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:70;height:var(--hh);background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.top .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{text-decoration:none;color:var(--ink);font-weight:500;letter-spacing:.42em;font-size:.95rem;padding-left:.42em}
+.nav{display:flex;gap:30px;align-items:center}
+.nav a{color:var(--muted);text-decoration:none;font-size:.88rem;transition:color .5s}
+.nav a:hover{color:var(--ink)}
+.nav a.cta{color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px}
+@media (max-width:760px){.nav{gap:20px}.nav .opt{display:none}}
+
+/* Escenas fijadas al scroll */
+.pin{position:relative}
+.pin-inner{position:sticky;top:var(--top);height:calc(100svh - var(--top));overflow:hidden}
+.stage-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* Hero */
+.hero{height:250vh;background:#D9D6CF}
+.hero .pin-inner{background:#D9D6CF}
+.hero-fallback{position:absolute;inset:0;background:repeating-linear-gradient(176deg,#d3d0c8 0 7px,#e0ddd6 7px 15px)}
+.hero-copy{position:absolute;inset:0 0 auto;padding-block:clamp(28px,6vh,72px);display:grid;gap:20px;pointer-events:none}
+.hero-copy::before{content:"";position:absolute;inset:0 0 -40%;background:linear-gradient(#D9D6CF 0%,rgba(217,214,207,.88) 45%,rgba(217,214,207,0));z-index:-1}
+.hero h1{font-size:clamp(2.5rem,6.4vw,6rem);line-height:.98;letter-spacing:-.035em;max-width:13ch}
+.hero h1 em{letter-spacing:-.02em}
+.hero .lead{max-width:40ch;color:#55534E;font-size:clamp(1rem,1.3vw,1.12rem)}
+.hero-copy .label{color:#605E58}
+.hero-foot{position:absolute;inset:auto 0 0;padding-block:22px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.cue{display:flex;align-items:center;gap:12px;font-size:.8rem;letter-spacing:.08em;color:#55534E}
+.cue i{width:1px;height:38px;background:#55534E;transform-origin:top;animation:cue 2.8s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(0)}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.cap{display:flex;align-items:center;gap:18px;font-size:.88rem;background:rgba(246,245,242,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);padding:10px 16px;border-radius:2px;transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.cap b{font-weight:500}
+
+/* Manifiesto */
+.manifest{padding-block:clamp(110px,18vh,220px)}
+.manifest #manifestText{font-size:clamp(1.55rem,3.4vw,3.05rem);line-height:1.22;letter-spacing:-.022em;font-weight:300;max-width:24ch}
+.manifest .w{transition:opacity .25s linear}
+.manifest .meta{margin-top:56px;display:flex;gap:44px;flex-wrap:wrap}
+.manifest .meta div{display:grid;gap:2px}
+.manifest .meta b{font-weight:300;font-size:2rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+
+/* Escena alisado */
+.scene{height:210vh;background:#D9D6CF}
+.scene .pin-inner{background:#D9D6CF}
+.scene-copy{position:absolute;left:0;right:0;bottom:0;padding-block:clamp(24px,5vh,56px);display:grid;gap:14px;pointer-events:none}
+.scene-copy>div{background:rgba(246,245,242,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding:24px 26px;max-width:430px;display:grid;gap:12px;pointer-events:auto;border-radius:2px}
+.scene-copy h2{font-size:clamp(1.7rem,3vw,2.5rem);line-height:1.05;letter-spacing:-.03em}
+.scene-copy p{color:var(--muted)}
+
+/* Colección */
+section.block{padding-block:clamp(90px,14vh,170px)}
+.head{display:grid;gap:18px;margin-bottom:clamp(36px,6vh,64px)}
+.head h2{font-size:clamp(2rem,4.6vw,4rem);line-height:1.02;letter-spacing:-.035em;max-width:16ch}
+.head p:not(.label){color:var(--muted);max-width:52ch}
+.filters{display:flex;gap:26px;flex-wrap:wrap;margin-bottom:40px;border-bottom:1px solid var(--line)}
+.filter{border:0;background:none;padding:0 0 14px;margin-bottom:-1px;cursor:pointer;font-size:.92rem;color:var(--muted);border-bottom:1px solid transparent;transition:color .5s,border-color .5s}
+.filter sup{font-size:.62rem;margin-left:3px}
+.filter[aria-pressed="true"]{color:var(--ink);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 14px}
+@media (min-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:64px 28px}}
+.card{position:relative;display:grid;gap:14px;align-content:start}
+.card-img{position:relative;aspect-ratio:4/5;max-width:100%;background:var(--tile);overflow:hidden;border-radius:2px}
+.card-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity 1.6s var(--ease),transform 2.2s var(--ease)}
+.card-img img.in{opacity:1;transform:scale(1)}
+.card:hover .card-img img.in{transform:scale(1.045)}
+.card-img .line{position:absolute;left:14px;top:12px;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);z-index:1}
+.card-body{display:grid;gap:4px;min-width:0}
+.card-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.card h3{font-size:1.02rem;font-weight:500;letter-spacing:-.005em;line-height:1.3}
+.card .ref{font-size:.7rem;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
+.card .fn{color:var(--muted);font-size:.9rem;line-height:1.45}
+.card-open{all:unset;cursor:pointer}
+.card-open::after{content:"";position:absolute;inset:0;z-index:2}
+.card-open:focus-visible::after{outline:1px solid var(--ink);outline-offset:6px}
+@media (max-width:520px){.card .fn{font-size:.82rem}.card h3{font-size:.94rem}.card .ref{display:none}}
+
+/* Galería horizontal de texturas */
+.gallery{position:relative;background:var(--paper)}
+.gallery .pin-inner{display:grid;grid-template-rows:auto 1fr;grid-template-columns:100%;align-content:start}
+.gal-head{padding-block:clamp(28px,6vh,60px) clamp(18px,3vh,30px);display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.gal-head h2{font-size:clamp(1.9rem,4vw,3.4rem);line-height:1.02;letter-spacing:-.035em}
+.gal-head p{color:var(--muted);max-width:34ch}
+.track{display:flex;gap:clamp(14px,2vw,28px);padding-left:max(20px, env(safe-area-inset-left,0px));padding-right:max(20px, env(safe-area-inset-right,0px));will-change:transform;align-items:start;min-height:0;width:max-content}
+@media (min-width:800px){.track{padding-left:max(48px, env(safe-area-inset-left,0px));padding-right:max(48px, env(safe-area-inset-right,0px))}}
+.panel{flex:none;width:min(74vw,400px);display:grid;gap:14px}
+@media (min-width:800px){.panel{width:min(30vw,440px)}}
+.panel-wall{position:relative;aspect-ratio:4/5;width:100%;max-height:calc(100svh - var(--top) - 240px);background:#D9D6CF;overflow:hidden;border-radius:2px}
+.panel-wall canvas{position:absolute;inset:0;width:100%;height:100%}
+.panel-meta{display:flex;justify-content:space-between;gap:4px 12px;align-items:end;flex-wrap:wrap}
+@media (max-width:620px){.panel-meta{flex-direction:column;align-items:start}.panel-meta span{text-align:left}}
+.panel-meta h3{font-size:1.35rem;letter-spacing:-.02em}
+.panel-meta span{font-size:.82rem;color:var(--muted);text-align:right}
+.panel-meta .n{font-size:.7rem;letter-spacing:.14em;color:var(--muted);text-align:left}
+
+/* Soluciones */
+.sol{display:grid;gap:clamp(70px,12vh,140px)}
+.sol-row{display:grid;gap:28px;align-items:center}
+@media (min-width:900px){.sol-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px}.sol-row:nth-child(even) .sol-img{order:2}}
+.sol-img{position:relative;aspect-ratio:5/4;max-width:100%;background:var(--tile);overflow:hidden;border-radius:2px}
+.sol-img img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover;opacity:0;transition:opacity 1.6s var(--ease);will-change:transform}
+.sol-img img.in{opacity:1}
+.sol-copy{display:grid;gap:18px;max-width:46ch}
+.sol-copy h3{font-size:clamp(1.6rem,3vw,2.6rem);line-height:1.06;letter-spacing:-.03em}
+.sol-copy p{color:var(--muted)}
+
+/* Contacto */
+.contact{background:var(--deep);color:var(--on-deep)}
+.contact .wrap{display:grid;gap:48px;padding-block:clamp(90px,14vh,160px)}
+@media (min-width:900px){.contact .wrap{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:end}}
+.contact .label{color:#A29F98}
+.contact h2{font-size:clamp(2rem,4.6vw,4rem);line-height:1.02;letter-spacing:-.035em;margin-top:18px}
+.contact p{color:#B9B6AF;max-width:46ch;margin-top:22px}
+.contact dl{margin:0;display:grid}
+.contact dl div{display:flex;justify-content:space-between;gap:16px;padding-block:16px;border-bottom:1px solid rgba(236,235,231,.16);flex-wrap:wrap}
+.contact dt{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#A29F98;padding-top:4px}
+.contact dd{margin:0}
+footer{background:var(--deep);color:#8E8B85;font-size:.82rem}
+footer .wrap{padding-block:26px 40px;display:flex;justify-content:space-between;gap:12px 28px;flex-wrap:wrap;border-top:1px solid rgba(236,235,231,.1)}
+
+/* Ficha lateral */
+dialog.drawer{position:fixed;inset:0 0 0 auto;margin:0;padding:0;border:0;width:min(580px,100%);height:100dvh;max-height:100dvh;max-width:100%;background:var(--paper);color:var(--ink);overflow:auto;box-shadow:-30px 0 90px -30px rgba(0,0,0,.35)}
+dialog.drawer::backdrop{background:rgba(20,20,19,.35);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+dialog.drawer[open]{animation:slideIn .9s var(--ease)}
+@keyframes slideIn{from{transform:translateX(40px);opacity:0}}
+.dw-img{position:relative;aspect-ratio:4/5;max-height:62dvh;width:100%;background:var(--tile);overflow:hidden}
+.dw-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dw-close{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:calc(16px + env(safe-area-inset-right,0px));z-index:2;border:0;background:rgba(246,245,242,.9);padding:9px 14px;cursor:pointer;font-size:.82rem;letter-spacing:.06em;border-radius:2px}
+.dw-body{padding:34px max(26px, env(safe-area-inset-right,0px)) calc(40px + env(safe-area-inset-bottom,0px)) max(26px, env(safe-area-inset-left,0px));display:grid;gap:20px}
+.dw-body h2{font-size:clamp(1.9rem,4vw,2.6rem);line-height:1.04;letter-spacing:-.03em}
+.dw-body .fn{font-size:1.08rem}
+.dw-body .desc{color:var(--muted)}
+.dw-body h3{font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.uses{margin:0;padding:0;list-style:none;display:grid}
+.uses li{padding-block:10px;border-bottom:1px solid var(--line);font-size:.95rem}
+.specs{display:grid;grid-template-columns:auto 1fr;gap:10px 28px;margin:0;font-size:.95rem}
+.specs dt{color:var(--muted);font-size:.85rem}
+.specs dd{margin:0;min-width:0}
+.btn{justify-self:start;border:1px solid var(--ink);background:var(--ink);color:var(--paper);padding:14px 24px;cursor:pointer;font-size:.9rem;letter-spacing:.02em;border-radius:2px;transition:opacity .5s}
+.btn:hover{opacity:.85}
+.note{font-size:.84rem;color:var(--muted);user-select:all}
+
+/* Entrada suave al scroll */
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion: no-preference){
+    .rise{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 75%}
+  }
+}
+@keyframes rise{from{opacity:.25;transform:translateY(40px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+</head><!--std-->
+<body><!--std-->
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="TRAMA, inicio">TRAMA</a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#coleccion">Colección</a>
+      <a class="opt" href="#texturas">Texturas</a>
+      <a class="opt" href="#soluciones">Soluciones</a>
+      <a class="cta" href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero pin" id="inicio">
+    <div class="pin-inner">
+      <canvas class="stage-canvas" id="heroCanvas" role="img" aria-label="Una llana de acero peina el enduido y deja una textura de ondas"></canvas>
+      <div class="hero-copy wrap">
+        <p class="label">Herramientas de terminación</p>
+        <h1>El acabado empieza en la <em>herramienta.</em></h1>
+        <p class="lead">Llanas, espátulas y accesorios para pintores, yeseros y albañiles. Pocas piezas, pensadas para que el trabajo quede bien a la primera.</p>
+      </div>
+      <div class="hero-foot wrap">
+        <span class="cue"><i></i>Deslizá para ver la pasada</span>
+        <span class="cap" id="heroCap"><span><b>Llana Ondas 16</b> · una pasada</span><button class="link" type="button" data-open="LL-01">Ver la pieza</button></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="manifest" id="manifiesto">
+    <div class="wrap">
+      <p class="label" style="margin-bottom:34px">Nuestra idea</p>
+      <p id="manifestText">Hacemos herramientas para quienes viven del acabado. Cada pieza resuelve un problema concreto de obra: un rincón que no queda recto, una textura que no sale pareja, un borde que se ensucia.</p>
+      <div class="meta" id="meta"></div>
+    </div>
+  </section>
+
+  <section class="scene pin" id="alisado" aria-label="Alisado con espátula">
+    <div class="pin-inner">
+      <canvas class="stage-canvas" id="sceneCanvas" role="img" aria-label="Una espátula alisa el enduido en una sola pasada"></canvas>
+      <div class="scene-copy wrap">
+        <div>
+          <p class="label">Alisado</p>
+          <h2>Una pasada. <em>Sin marcas.</em></h2>
+          <p>La Espátula Ancha 250 lleva el enduido parejo de punta a punta del paño, sin escalones ni rebabas.</p>
+          <span><button class="link" type="button" data-open="ES-02">Ver la Espátula Ancha 250</button></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="coleccion">
+    <div class="wrap">
+      <div class="head rise">
+        <p class="label">Colección</p>
+        <h2>Piezas para cada etapa del <em>acabado</em></h2>
+        <p id="colIntro"></p>
+      </div>
+      <div class="filters" role="group" aria-label="Filtrar por familia" id="filters"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="gallery pin" id="texturas" aria-label="Texturas">
+    <div class="pin-inner">
+      <div class="gal-head wrap">
+        <div style="display:grid;gap:14px"><p class="label">Texturas</p><h2>Seis texturas, <em>seis herramientas</em></h2></div>
+        <p>Cada marca sale de una pieza de la colección. Deslizá para ver la pasada.</p>
+      </div>
+      <div class="track" id="track"></div>
+    </div>
+  </section>
+
+  <section class="block" id="soluciones">
+    <div class="wrap">
+      <div class="head rise">
+        <p class="label">Soluciones</p>
+        <h2>Cada pieza <em>resuelve algo</em></h2>
+        <p>Pensamos desde el problema que aparece en obra, no desde la vidriera.</p>
+      </div>
+      <div class="sol" id="sol"></div>
+    </div>
+  </section>
+
+  <section class="contact" id="contacto">
+    <div class="wrap">
+      <div class="rise">
+        <p class="label">Contacto</p>
+        <h2>Para pinturerías, corralones y <em>profesionales</em></h2>
+        <p>Pedí el catálogo con precios y disponibilidad, o contanos qué problema querés resolver en obra.</p>
+      </div>
+      <dl class="rise">
+        <div><dt>WhatsApp</dt><dd>+54 9 ··· (a definir)</dd></div>
+        <div><dt>Instagram</dt><dd>@trama.herramientas (a definir)</dd></div>
+        <div><dt>Pedidos</dt><dd>Mayoristas y minoristas</dd></div>
+        <div><dt>Envíos</dt><dd>A todo el país</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap"><span>TRAMA · Herramientas de terminación</span><span>Catálogo de presentación · Medidas sujetas a cambios</span></div>
+</footer>
+
+<dialog class="drawer" id="pieza" aria-labelledby="pzName" data-lenis-prevent>
+  <button class="dw-close" id="pzClose" type="button">Cerrar</button>
+  <div class="dw-img"><img id="pzImg" alt=""></div>
+  <div class="dw-body">
+    <p class="label" id="pzLine"></p>
+    <h2 id="pzName"></h2>
+    <p class="fn" id="pzFn"></p>
+    <p class="desc" id="pzDesc"></p>
+    <h3>Para qué sirve</h3>
+    <ul class="uses" id="pzUses"></ul>
+    <dl class="specs" id="pzSpecs"></dl>
+    <button class="btn" id="pzAsk" type="button">Copiar consulta</button>
+    <p class="note" id="pzNote"></p>
+  </div>
+</dialog>
+
+<script>
+(function(){
+"use strict";
+/* ================= Datos ================= */
+const PROF = {
+  square: f => f < .5 ? 1 : 0,
+  v: f => 1 - Math.abs(2*f - 1),
+  wave: f => .5 - .5*Math.cos(2*Math.PI*f),
+  half: f => { const t = 2*f - 1; return Math.sqrt(Math.max(0, 1 - t*t)); }
+};
+function edgeSampler(len, cfg){
+  const P = PROF[cfg.p], pitch = cfg.pitch, m0 = cfg.margin ?? 8;
+  const n = Math.max(1, Math.floor((len - 2*m0)/pitch)), m = (len - n*pitch)/2;
+  return s => (s < m || s > len - m) ? 0 : P((((s - m)/pitch) % 1 + 1) % 1);
+}
+const EDGE = {
+  ondas:{p:'wave',pitch:16,depth:6}, media:{p:'half',pitch:10,depth:5}, rayado:{p:'square',pitch:4,depth:2,margin:6},
+  peine:{p:'square',pitch:12,depth:6}, v:{p:'v',pitch:10,depth:6}
+};
+const LINES = [
+  {id:'llanas', name:'Llanas'}, {id:'espatulas', name:'Espátulas'}, {id:'rodillos', name:'Rodillos y sellos'},
+  {id:'pintura', name:'Pintura'}, {id:'obra', name:'Albañilería'}
+];
+const P = (ref,line,name,fn,desc,uses,specs,model) => ({ref,line,name,fn,desc,uses,specs,model});
+const PRODUCTS = [
+  P('LL-01','llanas','Llana Ondas 16','Ondas suaves sobre enduido y revoque fino.','Borde ondulado de paso 16 mm. En línea recta deja surcos redondeados; con un zigzag suave arma el efecto ola.',['Enduido texturable','Revoque fino a la cal','Yeso y estucos'],{'Medida':'280 × 120 mm','Perfil':'Onda, paso 16 mm','Variantes':'Paso 10 · 16 · 24 mm'},{b:'llana',o:{edges:{bottom:EDGE.ondas}}}),
+  P('LL-02','llanas','Llana Media Caña 10','Canaletas semicirculares parejas.','Dientes de media caña de 5 mm de radio. Deja una textura rústica peinada con sombra marcada.',['Revestimiento texturado','Rústico peinado','Base de microcemento'],{'Medida':'280 × 120 mm','Perfil':'Media caña, radio 5 mm','Variantes':'Radio 3 · 5 · 8 mm'},{b:'llana',o:{edges:{bottom:EDGE.media},plate:'hueso'}}),
+  P('LL-03','llanas','Llana Rayado Fino 4','Rayado fino y continuo.','Dientes cuadrados de 2 mm cada 4 mm. Con dos pasadas cruzadas arma un tramado tipo tela.',['Revestimiento acrílico','Tramado cruzado','Base de adherencia'],{'Medida':'280 × 120 mm','Perfil':'Cuadrado 2 × 2 mm','Variantes':'Paso 3 · 4 · 6 mm'},{b:'llana',o:{edges:{bottom:EDGE.rayado}}}),
+  P('LL-04','llanas','Llana Peine 6 × 6','Dentado cuadrado para adhesivo y texturas gruesas.','Dos bordes dentados de 6 × 6 mm, uno largo y uno corto, para cargar pegamento parejo o peinar texturas gruesas.',['Adhesivo cerámico','Texturas gruesas','Base de revestimientos'],{'Medida':'280 × 120 mm','Perfil':'Cuadrado 6 × 6 mm','Variantes':'4 × 4 · 6 × 6 · 8 × 8 · 10 × 10'},{b:'llana',o:{edges:{bottom:EDGE.peine,right:{...EDGE.peine,margin:10}}}}),
+  P('LL-05','llanas','Llana Diente V 10','Dientes en V para pegamentos de piso.','Diente triangular de 6 mm. Reparte capas finas y deja una textura de líneas en punta.',['Adhesivo de vinílico','Texturas en V','Membranas líquidas'],{'Medida':'280 × 120 mm','Perfil':'V, paso 10 mm','Variantes':'V 3 · 6 · 10 mm'},{b:'llana',o:{edges:{bottom:EDGE.v},plate:'hueso'}}),
+  P('LL-06','llanas','Llana 4 Bordes','Cuatro perfiles en una sola llana.','Ondas, peine cuadrado, V y media caña, uno en cada lado. Ideal para muestras en mostrador y para probar antes de elegir.',['Muestras en pinturería','Cursos de texturado','Pruebas rápidas en obra'],{'Medida':'200 × 200 mm','Perfiles':'Onda · cuadrado · V · media caña'},{b:'llana',o:{L:200,W:200,r:8,edges:{bottom:EDGE.ondas,right:EDGE.peine,top:EDGE.v,left:EDGE.media},hspan:120}}),
+
+  P('ES-01','espatulas','Espátula Flexible 100','Para enduido, masilla y retoques finos.','Hoja de borde biselado que copia la pared. Mango con zona blanda que no cansa la mano.',['Enduido y masilla','Tapado de fisuras','Retoques'],{'Hoja':'100 mm','Variantes':'60 · 100 · 150 mm'},{b:'espatula',o:{w:100,l:80,neck:32}}),
+  P('ES-02','espatulas','Espátula Ancha 250','Tiradas largas de enduido en muro y placa.','Hoja ancha para cargar y alisar paños grandes con menos pasadas y sin escalones.',['Enduido en muro','Juntas de placa de yeso','Alisado final'],{'Hoja':'250 mm','Variantes':'200 · 250 · 300 mm'},{b:'espatula',o:{w:250,l:95,neck:44,t:2,r:12,hl:120}}),
+  P('ES-03','espatulas','Espátula Dentada Detalle','Textura en rincones donde la llana no entra.','Hoja corta con dientes de 3 mm para continuar la textura en bordes, marcos y esquinas.',['Rincones y marcos','Retoques de textura','Piezas chicas'],{'Hoja':'60 mm','Perfil':'Cuadrado 3 × 3 mm','Variantes':'Cuadrado · onda · V'},{b:'espatula',o:{w:60,l:55,neck:24,r:4,edge:{p:'square',pitch:6,depth:3,margin:4},hl:100}}),
+  P('ES-04','espatulas','Rinconera Interna 90°','Rincones rectos en una sola pasada.','Dos alas a 90° que apoyan en las dos paredes a la vez y dejan el ángulo limpio.',['Rincones de enduido','Encuentro muro y cielorraso','Yeso'],{'Alas':'60 mm','Largo':'120 mm','Variantes':'90° · 100°'},{b:'rinconera',o:{}}),
+  P('ES-05','espatulas','Esquinera Externa 90°','Aristas externas parejas.','Perfil en ángulo que pasa sobre la cantonera y deja la arista derecha y protegida.',['Aristas con cantonera','Columnas y vigas','Mochetas'],{'Alas':'60 mm','Largo':'120 mm','Variantes':'Canto vivo · canto redondeado'},{b:'rinconera',o:{ext:true}}),
+  P('ES-06','espatulas','Set de Modelado × 3','Hoja, recta y fina para trabajos de detalle.','Tres espátulas chicas para modelar molduras, reparar cantos y trabajar estucos.',['Estucos y molduras','Reparación de cantos','Trabajos finos'],{'Hojas':'36 · 30 · 16 mm','Contenido':'3 piezas'},{b:'setModelado',o:{}}),
+
+  P('RO-01','rodillos','Rodillo Piedra','Relieve que imita piedra natural.','Relieve irregular que se repite sin costura visible. Va sobre enduido texturable o revestimiento.',['Muros de acento','Fachadas','Revestimientos'],{'Largo':'180 mm','Diámetro':'50 mm','Variantes':'Piedra fina · piedra gruesa'},{b:'rodillo',o:{pattern:'piedra',color:'hueso'}}),
+  P('RO-02','rodillos','Rodillo Rayado','Líneas continuas en una sola pasada.','Anillos cada 8 mm que dejan un rayado recto y parejo de punta a punta del paño.',['Rayado vertical','Cielorrasos','Locales comerciales'],{'Largo':'180 mm','Paso':'8 mm','Variantes':'Paso 5 · 8 · 12 mm'},{b:'rodillo',o:{pattern:'rayado',color:'piedra'}}),
+  P('RO-03','rodillos','Rodillo Rombos','Trama de rombos para muros de acento.','Relieve en rombos de 8 mm. Con veladura sobre una base de otro tono resalta el dibujo.',['Muros de acento','Veladuras','Decoración'],{'Largo':'180 mm','Celda':'8 mm','Variantes':'Rombo · hexágono'},{b:'rodillo',o:{pattern:'rombos',color:'grafito'}}),
+  P('RO-04','rodillos','Sello Ladrillo Visto','Juntas de ladrillo sobre revoque fresco.','Placa flexible con hiladas de 60 mm y junta de 8 mm. Se apoya, se presiona y se corre una hilada.',['Revoque fresco','Imitación ladrillo','Fachadas y quinchos'],{'Medida':'250 × 136 mm','Hilada':'60 mm, junta 8 mm','Variantes':'Ladrillo · piedra laja'},{b:'sello',o:{}}),
+
+  P('PI-01','pintura','Escurridor para Balde 20 L','Descarga pareja del rodillo.','Rejilla que se engancha al borde del balde, con ranuras para rodillos de 18 a 23 cm.',['Baldes de 20 L','Rodillos de lana y antigota','Obra y taller'],{'Medida':'240 × 280 mm','Enganche':'Borde de 4 a 8 mm','Variantes':'Balde 10 L · 20 L'},{b:'escurridor',o:{}}),
+  P('PI-02','pintura','Gancho Lata y Escalera','La lata siempre a mano en el escalón.','Gancho doble: arriba se calza en el escalón, abajo toma el asa de la lata de 4 L.',['Escaleras tijera','Latas de 1 y 4 L','Baldes chicos'],{'Largo':'170 mm','Carga':'Lata de 4 L','Variantes':'Escalón 25 · 35 mm'},{b:'gancho',o:{}}),
+  P('PI-03','pintura','Pirámides de Apoyo × 10','Pintá las dos caras de una puerta de una vez.','Punta mínima de contacto para que la pieza no se pegue. Se apilan y ocupan poco lugar.',['Puertas y postigos','Muebles','Barnizado'],{'Base':'52 mm','Altura':'34 mm','Contenido':'10 unidades'},{b:'piramides',o:{}}),
+  P('PI-04','pintura','Llave Abrelatas','Abre la tapa sin deformarla.','Palanca con punta curva que levanta la tapa sin doblar el borde, así la lata vuelve a cerrar bien.',['Latas de 1, 4 y 10 L','Revolver muestras','Llavero de obra'],{'Largo':'140 mm','Variantes':'Con logo de pinturería'},{b:'abrelatas',o:{}}),
+  P('PI-05','pintura','Guía de Recorte 300','Bordes limpios sin cinta.','Pantalla rígida que se apoya contra el zócalo o el marco para pintar de corrido. Se limpia con un trapo y sigue.',['Zócalos y marcos','Vidrios','Encuentros de colores'],{'Hoja':'300 mm','Variantes':'200 · 300 mm'},{b:'espatula',o:{w:300,l:110,neck:46,t:2,r:16,hl:120}}),
+  P('PI-06','pintura','Porta-herramientas de Pared','Cada espátula en su lugar.','Estante con ranuras para colgar espátulas por la hoja. Se atornilla en el taller, la camioneta o el mostrador.',['Taller','Camioneta de obra','Exhibición en mostrador'],{'Largo':'320 mm','Ranuras':'5','Variantes':'3 · 5 · 8 ranuras'},{b:'porta',o:{}}),
+
+  P('AL-01','obra','Crucetas para Cerámica','Juntas parejas sin medir.','Separadores en cruz con un tono por medida, para reconocerlas de un vistazo en la caja.',['Cerámica y porcellanato','Revestimientos','Pisos'],{'Medidas':'2 · 3 · 5 mm','Contenido':'Bolsa de 200 u.'},{b:'crucetas',o:{}}),
+  P('AL-02','obra','Cuñas Niveladoras','Calzan marcos y pisos al milímetro.','Cuña de pendiente suave con estrías de agarre. Se encastran entre sí para regular la altura.',['Marcos de aberturas','Pisos flotantes','Mesadas y muebles'],{'Largo':'75 mm','Altura':'1,5 a 11 mm','Contenido':'Bolsa de 20 u.'},{b:'cunas',o:{}}),
+  P('AL-03','obra','Porta-hilo de Albañil','El hilo tenso en la esquina, sin clavos.','Par de tacos en L que se calzan en la esquina del ladrillo y sostienen el hilo de la hilada.',['Hiladas de ladrillo','Bloques','Nivelación de muros'],{'Medida':'46 × 36 × 28 mm','Contenido':'1 par','Variantes':'Ladrillo común · bloque'},{b:'portahilo',o:{}}),
+  P('AL-04','obra','Separador Rueda','Recubrimiento parejo para el hierro.','Rueda que se clipea al hierro y lo mantiene a 30 mm del encofrado.',['Columnas y vigas','Losas','Tabiques'],{'Hierro':'Ø 6 a 12 mm','Recubrimiento':'30 mm','Variantes':'20 · 25 · 30 mm'},{b:'separador',o:{}}),
+  P('AL-05','obra','Junteador Media Caña','Juntas cóncavas prolijas en ladrillo visto.','Barra de perfil redondo que alisa y compacta la junta dejando una media caña pareja.',['Ladrillo visto','Piedra','Juntas de mortero'],{'Largo':'170 mm','Perfil':'Radio 7 mm','Variantes':'Radio 5 · 7 · 10 mm'},{b:'junteador',o:{}}),
+  P('AL-06','obra','Terminador Sanitario','Encuentro curvo entre piso y pared.','Perfil de cuarto de caña que deja el encuentro redondeado y fácil de limpiar.',['Cocinas industriales','Consultorios','Baños'],{'Radio':'25 mm','Largo':'120 mm','Variantes':'Radio 15 · 25 · 40 mm'},{b:'cove',o:{}})
+];
+const TEXTURES = [
+  {id:'ondas', name:'Ondas', ref:'LL-01', mode:'comb', tex:EDGE.ondas, path:{amp:9,lam:150}},
+  {id:'media', name:'Media caña', ref:'LL-02', mode:'comb', tex:EDGE.media},
+  {id:'rayado', name:'Rayado fino', ref:'LL-03', mode:'comb', tex:EDGE.rayado},
+  {id:'peine', name:'Peine 6 × 6', ref:'LL-04', mode:'comb', tex:EDGE.peine},
+  {id:'v', name:'Diente V', ref:'LL-05', mode:'comb', tex:EDGE.v},
+  {id:'piedra', name:'Piedra', ref:'RO-01', mode:'roll'}
+];
+const SOLUTIONS = [
+  {ref:'ES-04', t:'Rincones rectos, <em>en una pasada</em>', d:'El ángulo interno es donde más se nota un mal acabado. La rinconera apoya en las dos paredes a la vez y deja la arista limpia.'},
+  {ref:'LL-04', t:'La misma textura <em>de punta a punta</em>', d:'Un diente siempre igual hace que la textura no cambie aunque cambie la mano, el ritmo o el oficial.'},
+  {ref:'PI-05', t:'Bordes limpios, <em>sin cinta</em>', d:'Se apoya contra el zócalo o el marco y se pinta de corrido. Menos tiempo enmascarando, menos retoques.'},
+  {ref:'AL-01', t:'Juntas parejas, <em>sin medir</em>', d:'Un tono por medida, 2, 3 y 5 mm, para no mezclar separadores y mantener la junta igual en todo el paño.'}
+];
+
+const T = window.TRAMA = {PROF, edgeSampler, EDGE, PRODUCTS, TEXTURES, LINES, thumbs:{}, sprites:{}, tickers:[]};
+const $ = s => document.querySelector(s);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v,a=0,b=1) => Math.min(b, Math.max(a, v));
+const byRef = r => PRODUCTS.find(p => p.ref === r);
+const lineName = id => LINES.find(l => l.id === id).name;
+
+/* ================= Relieve del enduido (campos de altura en mm) ================= */
+function rng(seed){ let s = seed >>> 0 || 1; return () => { s ^= s << 13; s >>>= 0; s ^= s >> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; }; }
+function vnoise(W, H, cell, seed, out, amp){
+  const gw = Math.ceil(W/cell) + 2, gh = Math.ceil(H/cell) + 2, g = new Float32Array(gw*gh), r = rng(seed*7919 + 13);
+  for (let i=0;i<g.length;i++) g[i] = r() - .5;
+  const ix = new Int32Array(W), sx = new Float32Array(W);
+  for (let x=0;x<W;x++){ const f = x/cell, i = f|0, t = f - i; ix[x] = i; sx[x] = t*t*(3 - 2*t); }
+  for (let y=0;y<H;y++){
+    const fy = y/cell, iy = fy|0, ty = fy - iy, sy = ty*ty*(3 - 2*ty), r0 = iy*gw, r1 = r0 + gw, o = y*W;
+    for (let x=0;x<W;x++){ const i = ix[x], u = sx[x], a = g[r0+i], b = g[r0+i+1], c = g[r1+i], d = g[r1+i+1];
+      out[o+x] += amp*(a + (b-a)*u + (c-a)*sy + (a-b-c+d)*u*sy); }
+  }
+  return out;
+}
+function field(kind, W, H, s, seed){
+  const h = new Float32Array(W*H), add = (mm, amp, k) => vnoise(W, H, Math.max(2, mm*s), seed + k, h, amp*2);
+  if (kind === 'rough'){ add(34,1.5,1); add(9,.55,2); add(3.2,.16,3); }
+  else if (kind === 'smooth'){ add(90,.4,4); add(22,.08,5); add(4,.02,6); }
+  else { add(48,.42,6); add(12,.15,7); add(3.5,.05,8); }
+  return h;
+}
+// o: {mode, tex, band (mm), bandC (px), path {amp,lam} en mm, x0 (mm en el px 0), seed}
+function sweepFields(W, H, s, o){
+  const base = field(o.mode === 'smooth' ? 'rough' : 'fresh', W, H, s, o.seed || 1);
+  const full = Float32Array.from(base), bh = o.band*s, y0 = o.bandC - bh/2, pile = 2.2*s;
+  const off = x => o.path ? o.path.amp*s*Math.sin(2*Math.PI*((x/s) + (o.x0||0))/o.path.lam) : 0;
+  let extra = null;
+  if (o.mode === 'smooth') extra = field('smooth', W, H, s, (o.seed||1) + 20);
+  if (o.mode === 'roll'){ extra = new Float32Array(W*H); vnoise(W, H, Math.max(2,7*s), 31, extra, 1); vnoise(W, H, Math.max(2,2.6*s), 32, extra, .45); }
+  const f = o.tex ? PROF[o.tex.p] : null, pitch = o.tex ? o.tex.pitch*s : 1, dd = .35/pitch;
+  for (let x=0;x<W;x++){
+    const xm = x/s, pr = .86 + .14*Math.sin(xm/37)*Math.sin(xm/91 + 1), jit = .35*s*Math.sin(xm/23 + Math.sin(xm/61));
+    const yo = y0 + off(x) + (o.mode === 'comb' ? jit : 0), ya = Math.max(0, Math.floor(yo - pile*3)), yb = Math.min(H-1, Math.ceil(yo + bh + pile*3));
+    for (let y=ya;y<=yb;y++){
+      const i = y*W + x, yy = y - yo;
+      if (yy >= 0 && yy < bh){
+        if (o.mode === 'comb'){ const fr = yy/pitch, a = fr - Math.floor(fr); full[i] = o.tex.depth*.9*pr*(f(a) + f((a+dd)%1) + f((a-dd+1)%1))/3 + .14*base[i] - .2; }
+        else if (o.mode === 'smooth'){ const e = Math.min(1, Math.min(yy, bh - yy)/(7*s)), w = e*e*(3 - 2*e); full[i] = base[i]*(1 - w) + w*(extra[i] + 1.3 + .05*Math.sin(y*2*Math.PI/(2.2*s) + Math.sin(x/(40*s)))); }
+        else { const n = extra[i]; full[i] = 1.5*Math.min(1, Math.max(0, (n + .08)/.42)) + .25*base[i]; }
+      } else {
+        const d = yy < 0 ? -yy : yy - bh; full[i] += (o.mode === 'roll' ? .25 : .8)*Math.exp(-(d*d)/(pile*pile));
+      }
+    }
+  }
+  return {base, full, off};
+}
+const DARK = [140,135,127], LIGHT = [246,244,239];
+function shade(h, W, H, s){
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d'), id = g.createImageData(W, H), d = id.data, k = s/2;
+  for (let y=0;y<H;y++){
+    const yu = y > 0 ? -W : 0, yd = y < H-1 ? W : 0;
+    for (let x=0;x<W;x++){
+      const i = y*W + x, sy = (h[i+yu] - h[i+yd])*k, sx = (h[x>0?i-1:i] - h[x<W-1?i+1:i])*k;
+      let b = .74 + .035*h[i] + .34*sy + .2*sx; b = b < .2 ? .2 : b > 1 ? 1 : b;
+      const j = i*4; d[j] = DARK[0] + (LIGHT[0]-DARK[0])*b; d[j+1] = DARK[1] + (LIGHT[1]-DARK[1])*b; d[j+2] = DARK[2] + (LIGHT[2]-DARK[2])*b; d[j+3] = 255;
+    }
+  }
+  g.putImageData(id, 0, 0); return c;
+}
+function gray(h, W, H, k){
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d'), id = g.createImageData(W, H), d = id.data;
+  for (let i=0;i<W*H;i++){ const v = Math.max(0, Math.min(255, 118 + h[i]*k)); const j = i*4; d[j] = d[j+1] = d[j+2] = v; d[j+3] = 255; }
+  g.putImageData(id, 0, 0); return c;
+}
+Object.assign(T, {sweepFields, gray, shade});
+
+/* ================= Escena 2D: una herramienta pasa y deja su marca ================= */
+class Sweep {
+  constructor(canvas, o){ this.c = canvas; this.ctx = canvas.getContext('2d'); this.o = o; this.p = -1; this.ready = false; }
+  layout(){
+    const r = this.c.getBoundingClientRect(); if (!r.width || !r.height) return;
+    const dpr = Math.min(devicePixelRatio || 1, 1.5), W = Math.min(2100, Math.round(r.width*dpr)), H = Math.round(W*r.height/r.width);
+    if (this.ready && Math.abs(W - this.W) < 4 && Math.abs(H - this.H)/this.H < .15) return;
+    this.W = this.c.width = W; this.H = this.c.height = H;
+    const wallW = typeof this.o.wallW === 'function' ? this.o.wallW(r.width, r.height) : this.o.wallW;
+    this.s = W/wallW;
+    const F = sweepFields(W, H, this.s, {...this.o, bandC: H*(this.o.bandAt ?? .5)});
+    this.off = F.off; this.base = shade(F.base, W, H, this.s); this.full = shade(F.full, W, H, this.s);
+    this.ready = true; this.p = -1;
+  }
+  draw(p){
+    if (!this.ready) this.layout(); if (!this.ready) return;
+    if (Math.abs(p - this.p) < .0004 && !this.dirty) return; this.p = p; this.dirty = false;
+    const {ctx, W, H} = this, x = (-.02 + 1.06*p)*W;
+    ctx.drawImage(this.base, 0, 0);
+    const cx = Math.max(0, Math.min(W, Math.round(x)));
+    if (cx > 0) ctx.drawImage(this.full, 0, 0, cx, H, 0, 0, cx, H);
+    const sp = T.sprites[this.o.sprite];
+    if (sp){
+      const k = this.s/sp.pxmm, y = H*(this.o.bandAt ?? .5) + this.off(x);
+      ctx.save(); ctx.translate(x, y); ctx.rotate(Math.sin(p*9)*.008);
+      ctx.drawImage(sp.img, -sp.ex*k, -sp.ey*k, sp.img.width*k, sp.img.height*k); ctx.restore();
+    }
+  }
+}
+
+/* ================= Textos y colección ================= */
+$('#meta').innerHTML = `<div><b>${PRODUCTS.length}</b><span class="label">Piezas</span></div><div><b>${LINES.length}</b><span class="label">Familias</span></div><div><b>${TEXTURES.length}</b><span class="label">Texturas</span></div>`;
+$('#colIntro').textContent = `${PRODUCTS.length} piezas en ${LINES.length} familias. Tocá cualquiera para ver medidas y usos.`;
+const words = $('#manifestText').textContent.trim().split(/\s+/);
+$('#manifestText').innerHTML = words.map(w => `<span class="w">${w}</span>`).join(' ');
+
+const filters = $('#filters'), grid = $('#grid');
+const mkF = (id, name, n) => { const b = document.createElement('button'); b.className = 'filter'; b.type = 'button'; b.dataset.f = id; b.setAttribute('aria-pressed', id === 'all' ? 'true' : 'false'); b.innerHTML = `${name}<sup>${n}</sup>`; filters.appendChild(b); };
+mkF('all', 'Todo', PRODUCTS.length); LINES.forEach(l => mkF(l.id, l.name, PRODUCTS.filter(p => p.line === l.id).length));
+grid.innerHTML = PRODUCTS.map(p => `<article class="card rise" data-line="${p.line}">
+  <div class="card-img"><span class="line">${lineName(p.line)}</span><img alt="${p.name}" data-thumb="${p.ref}" hidden></div>
+  <div class="card-body"><div class="card-row"><h3><button class="card-open" type="button" data-open="${p.ref}">${p.name}</button></h3><span class="ref">${p.ref}</span></div><p class="fn">${p.fn}</p></div>
+</article>`).join('');
+filters.addEventListener('click', e => {
+  const b = e.target.closest('.filter'); if (!b) return;
+  filters.querySelectorAll('.filter').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+  grid.querySelectorAll('.card').forEach(c => c.hidden = !(b.dataset.f === 'all' || c.dataset.line === b.dataset.f));
+  requestAnimationFrame(sizeGallery);
+});
+$('#sol').innerHTML = SOLUTIONS.map(s => { const p = byRef(s.ref); return `<div class="sol-row">
+  <div class="sol-img"><img alt="${p.name}" data-thumb="${p.ref}" data-par hidden></div>
+  <div class="sol-copy rise"><p class="label">${lineName(p.line)}</p><h3>${s.t}</h3><p>${s.d}</p><span><button class="link" type="button" data-open="${p.ref}">${p.name}</button></span></div></div>`; }).join('');
+$('#track').innerHTML = TEXTURES.map((t, i) => { const p = byRef(t.ref); return `<article class="panel">
+  <div class="panel-wall"><canvas role="img" aria-label="Textura ${t.name} sobre enduido"></canvas></div>
+  <div class="panel-meta"><div style="display:grid"><span class="n">${String(i+1).padStart(2,'0')} / ${String(TEXTURES.length).padStart(2,'0')}</span><h3>${t.name}</h3></div><span>Con <button class="link" type="button" data-open="${p.ref}">${p.name}</button></span></div>
+</article>`; }).join('');
+
+T.setThumb = (ref, url) => {
+  T.thumbs[ref] = url;
+  document.querySelectorAll(`img[data-thumb="${ref}"]`).forEach(img => {
+    img.onload = () => { img.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => img.classList.add('in'))); };
+    img.src = url;
+  });
+};
+
+/* ================= Ficha ================= */
+const dlg = $('#pieza');
+function openPiece(ref){
+  const p = byRef(ref); if (!p) return;
+  $('#pzLine').textContent = `${lineName(p.line)} · ${p.ref}`; $('#pzName').textContent = p.name; $('#pzFn').textContent = p.fn; $('#pzDesc').textContent = p.desc;
+  $('#pzUses').innerHTML = p.uses.map(u => `<li>${u}</li>`).join('');
+  $('#pzSpecs').innerHTML = Object.entries(p.specs).map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
+  const img = $('#pzImg'); img.alt = p.name; img.dataset.thumb = p.ref; img.onload = null;
+  if (T.thumbs[p.ref]) { img.src = T.thumbs[p.ref]; img.hidden = false; } else img.hidden = true;
+  $('#pzNote').textContent = ''; $('#pzAsk').textContent = 'Copiar consulta'; dlg.dataset.ref = ref;
+  if (!dlg.open) dlg.showModal(); dlg.scrollTop = 0; window.lenisInst?.stop();
+}
+dlg.addEventListener('close', () => window.lenisInst?.start());
+dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+$('#pzClose').addEventListener('click', () => dlg.close());
+document.addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b) openPiece(b.dataset.open); });
+$('#pzAsk').addEventListener('click', () => {
+  const p = byRef(dlg.dataset.ref), msg = `Hola, quiero consultar por ${p.name} (${p.ref}).`, fb = () => { $('#pzNote').textContent = msg; };
+  try { navigator.clipboard.writeText(msg).then(() => { $('#pzAsk').textContent = 'Consulta copiada'; }).catch(fb); } catch(e){ fb(); }
+});
+
+/* ================= Motor de scroll: todo avanza con el dedo, suavizado ================= */
+const damp = (c, t, k, dt) => c + (t - c)*(1 - Math.exp(-k*dt/1000));
+function pinProgress(sec){ const r = sec.getBoundingClientRect(), inner = sec.firstElementChild, stick = parseFloat(getComputedStyle(inner).top) || 0; return clamp((stick - r.top)/Math.max(1, r.height - inner.offsetHeight)); }
+T.pinProgress = pinProgress; T.damp = damp;
+
+// manifiesto: las palabras se encienden al pasar
+const mWords = [...document.querySelectorAll('#manifestText .w')], mSec = $('#manifiesto');
+T.tickers.push(() => {
+  const r = mSec.getBoundingClientRect(), vh = innerHeight; if (r.bottom < 0 || r.top > vh) return;
+  const p = clamp((vh*.8 - r.top)/(r.height*.75)), n = mWords.length;
+  mWords.forEach((w, i) => { w.style.opacity = (.16 + .84*clamp(p*n*1.15 - i)).toFixed(3); });
+});
+
+// escena de alisado
+const scene = new Sweep($('#sceneCanvas'), {mode:'smooth', band:250, sprite:'espatula', bandAt:.42, seed:3, wallW:(w,h) => w > h ? 760 : 420});
+const sceneSec = $('#alisado'); let sceneP = .22;
+T.tickers.push(dt => {
+  const r = sceneSec.getBoundingClientRect(); if (r.bottom < -50 || r.top > innerHeight*1.6) return;
+  const t = .22 + .78*pinProgress(sceneSec); sceneP = reduced ? t : damp(sceneP, t, 4.5, dt); scene.draw(sceneP);
+});
+
+// galería horizontal
+const gal = $('#texturas'), track = $('#track'), panels = [...track.children];
+const sweeps = panels.map((el, i) => { const t = TEXTURES[i]; return new Sweep(el.querySelector('canvas'), {mode:t.mode, tex:t.tex, path:t.path, band: t.mode === 'roll' ? 180 : 260, sprite: t.id, seed: 10 + i, wallW: 300, bandAt:.5}); });
+const pState = panels.map(() => 0);
+let galX = 0;
+function sizeGallery(){
+  const inner = gal.firstElementChild, over = Math.max(0, track.scrollWidth - innerWidth);
+  gal.style.height = `${inner.offsetHeight + over*1.15 + innerHeight*.35}px`;
+  gal.dataset.over = over;
+}
+T.tickers.push(dt => {
+  const r = gal.getBoundingClientRect(); if (r.bottom < -50 || r.top > innerHeight*1.8) return;
+  const over = +gal.dataset.over || 0, p = pinProgress(gal), tx = -over*clamp(p/.87);
+  galX = reduced ? tx : damp(galX, tx, 6, dt); track.style.transform = `translate3d(${galX.toFixed(1)}px,0,0)`;
+  const vw = innerWidth;
+  panels.forEach((el, i) => {
+    const pr = el.getBoundingClientRect(); if (pr.right < -40 || pr.left > vw + 40) return;
+    const target = clamp((vw*.92 - pr.left)/(vw*.62 + pr.width*.2));
+    pState[i] = reduced ? target : damp(pState[i], target, 5, dt); sweeps[i].draw(pState[i]);
+  });
+});
+
+// soluciones: parallax suave
+const pars = [...document.querySelectorAll('[data-par]')];
+T.tickers.push(() => { const vh = innerHeight; pars.forEach(img => { const r = img.parentElement.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return; const k = ((r.top + r.height/2) - vh/2)/vh; img.style.transform = `translate3d(0,${(k*-7).toFixed(2)}%,0)`; }); });
+
+// bucle único
+let last = performance.now();
+function loop(now){ const dt = Math.min(64, now - last); last = now; for (const f of T.tickers){ try { f(dt); } catch(e){ console.error(e); } } requestAnimationFrame(loop); }
+function relayout(){ sizeGallery(); scene.layout(); sweeps.forEach(s => s.layout()); }
+let rt = 0; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(relayout, 220); });
+addEventListener('load', sizeGallery);
+sizeGallery(); requestAnimationFrame(loop);
+T.redrawSweeps = () => { scene.dirty = true; sweeps.forEach(s => s.dirty = true); };
+
+/* ================= Scroll suave ================= */
+let lenis = null;
+if (window.Lenis && !reduced){
+  lenis = new Lenis({duration:1.7, easing:t => 1 - Math.pow(1 - t, 4), smoothWheel:true, wheelMultiplier:.85});
+  window.lenisInst = lenis; const lr = t => { lenis.raf(t); requestAnimationFrame(lr); }; requestAnimationFrame(lr);
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]'); if (!a) return;
+  const id = a.getAttribute('href'), target = id.length > 1 && document.querySelector(id); if (!target) return;
+  e.preventDefault(); const offset = -$('.top').offsetHeight;
+  if (lenis) lenis.scrollTo(target, {offset, duration:2}); else scrollTo({top: target.getBoundingClientRect().top + scrollY + offset, behavior: reduced ? 'auto' : 'smooth'});
+});
+})();
+</script>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const T = window.TRAMA, MM = .01, V3 = THREE.Vector3;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function webglOK(){ try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch(e){ return false; } }
+
+/* ================= Materiales ================= */
+const MAT = {
+  acero:  () => new THREE.MeshPhysicalMaterial({color:'#D9DCDF', metalness:1, roughness:.36}),
+  grafito:() => new THREE.MeshPhysicalMaterial({color:'#222324', roughness:.6, clearcoat:.15, clearcoatRoughness:.6}),
+  hueso:  () => new THREE.MeshPhysicalMaterial({color:'#E1DCD2', roughness:.52, clearcoat:.2, clearcoatRoughness:.5}),
+  piedra: () => new THREE.MeshPhysicalMaterial({color:'#A7A297', roughness:.62}),
+  bronce: () => new THREE.MeshStandardMaterial({color:'#9A7248', metalness:1, roughness:.34}),
+  hierro: () => new THREE.MeshStandardMaterial({color:'#57524C', metalness:.6, roughness:.55})
+};
+const cache = {}; const M = n => cache[n] || (cache[n] = MAT[n]());
+function mesh(g, m){ const x = new THREE.Mesh(g, m); x.castShadow = true; x.receiveShadow = true; return x; }
+
+/* ================= Geometría ================= */
+function dedupe(pts){ const o = []; for (const p of pts){ const q = o[o.length-1]; if (!q || Math.hypot(p[0]-q[0], p[1]-q[1]) > 1e-3) o.push(p); } const a = o[0], b = o[o.length-1]; if (o.length > 2 && Math.hypot(a[0]-b[0], a[1]-b[1]) < 1e-3) o.pop(); return o; }
+function polyFrom(V, Ec){
+  const out = [], n = V.length;
+  for (let i=0;i<n;i++){
+    const A = V[i], B = V[(i+1)%n], cfg = Ec[i]; out.push(A); if (!cfg) continue;
+    const dx = B[0]-A[0], dy = B[1]-A[1], len = Math.hypot(dx,dy); if (len < 1e-6) continue;
+    const ux = dx/len, uy = dy/len, nx = -uy, ny = ux, f = T.edgeSampler(len, cfg), step = cfg.pitch/(cfg.p === 'square' ? 40 : 16), N = Math.ceil(len/step);
+    for (let k=1;k<N;k++){ const s = k/N*len, d = f(s)*cfg.depth; out.push([A[0]+ux*s+nx*d, A[1]+uy*s+ny*d]); }
+  }
+  return dedupe(out);
+}
+const shapeOf = pts => new THREE.Shape(pts.map(p => new THREE.Vector2(p[0], p[1])));
+function roundRectVE(L, W, r, edges={}){
+  const V = [], Ec = [], corners = [[L/2-r,-W/2+r,-90,edges.right],[L/2-r,W/2-r,0,edges.top],[-L/2+r,W/2-r,90,edges.left],[-L/2+r,-W/2+r,180,edges.bottom]];
+  for (const [cx,cy,a0,after] of corners) for (let k=0;k<=6;k++){ const a = (a0+k*15)*Math.PI/180; V.push([cx+r*Math.cos(a), cy+r*Math.sin(a)]); Ec.push(k===6 ? (after||null) : null); }
+  return [V, Ec];
+}
+function rrPath(cx, cy, w, h, r, Cls=THREE.Path){
+  const p = new Cls(), x = cx-w/2, y = cy-h/2;
+  p.moveTo(x+r, y); p.lineTo(x+w-r, y); p.absarc(x+w-r, y+r, r, -Math.PI/2, 0, false); p.lineTo(x+w, y+h-r); p.absarc(x+w-r, y+h-r, r, 0, Math.PI/2, false);
+  p.lineTo(x+r, y+h); p.absarc(x+r, y+h-r, r, Math.PI/2, Math.PI, false); p.lineTo(x, y+r); p.absarc(x+r, y+r, r, Math.PI, Math.PI*1.5, false); return p;
+}
+function circlePath(cx, cy, r){ const p = new THREE.Path(); p.absarc(cx, cy, r, 0, Math.PI*2, true); return p; }
+function flat(shape, t, mat, bevel=.5){ const g = new THREE.ExtrudeGeometry(shape, {depth:t, bevelEnabled:bevel>0, bevelThickness:bevel, bevelSize:bevel*.8, bevelSegments:3, curveSegments:12}); g.rotateX(-Math.PI/2); g.translate(0, bevel, 0); return mesh(g, mat); }
+function upright(shape, depth, mat, bevel=.5){ const g = new THREE.ExtrudeGeometry(shape, {depth, bevelEnabled:bevel>0, bevelThickness:bevel, bevelSize:bevel*.8, bevelSegments:3, curveSegments:24}); g.translate(0, 0, -depth/2); return mesh(g, mat); }
+function closedHandle(span, h, r, mat){
+  const g = new THREE.Group(), a = span/2;
+  const pts = [[-a,0],[-a,h*.5],[-a*.84,h*.9],[-a*.5,h],[a*.5,h],[a*.84,h*.9],[a,h*.5],[a,0]].map(([x,y]) => new V3(x,y,0));
+  g.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, false, 'centripetal'), 120, r, 20, false), mat));
+  for (const x of [-a, a]){ const f = mesh(new THREE.CylinderGeometry(r*1.7, r*2.2, 4, 28), M('bronce')); f.position.set(x, 2, 0); g.add(f); }
+  const grip = mesh(new THREE.CapsuleGeometry(r*1.32, a*.85, 8, 24), mat); grip.rotation.z = Math.PI/2; grip.position.y = h; g.add(grip);
+  return g;
+}
+function lathedHandle(hl, mat, rmax=12){
+  const k = rmax/12, prof = [[0,0],[6,0],[7.5,2],[8,10],[9.5,hl*.35],[11.5,hl*.7],[12,hl*.85],[10.5,hl*.95],[7,hl-.8],[0,hl]].map(([x,y]) => new THREE.Vector2(x*k, y));
+  return mesh(new THREE.LatheGeometry(prof, 48), mat);
+}
+
+/* ================= Piezas (mm) ================= */
+const B = {};
+B.llana = ({L=280, W=120, t=4, r=10, edges={}, plate='acero', hspan, hh=46}={}) => {
+  const g = new THREE.Group(), [V, Ec] = roundRectVE(L, W, r, edges);
+  g.add(flat(shapeOf(polyFrom(V, Ec)), t, M(plate)));
+  const h = closedHandle(hspan || L*.58, hh, 6.5, M('grafito')); h.position.y = t + 1; g.add(h); return g;
+};
+B.espatula = ({w=100, l=80, neck=30, t=1.8, r=8, edge=null, blade='acero', hl=110}={}) => {
+  const V = [], Ec = [], push = (x,y,c=null) => { V.push([x,y]); Ec.push(c); };
+  push(-16, -neck*.42); push(0, -neck/2);
+  for (let k=0;k<=6;k++){ const a = (-90+k*15)*Math.PI/180; push(l-r + r*Math.cos(a), -w/2+r + r*Math.sin(a), k===6 ? edge : null); }
+  for (let k=0;k<=6;k++){ const a = (k*15)*Math.PI/180; push(l-r + r*Math.cos(a), w/2-r + r*Math.sin(a)); }
+  push(0, neck/2); push(-16, neck*.42);
+  const g = new THREE.Group(); g.add(flat(shapeOf(polyFrom(V, Ec)), t, M(blade), .3));
+  const hg = new THREE.Group();
+  const fer = mesh(new THREE.CylinderGeometry(7.5, 6, 14, 40), M('bronce')); fer.rotation.z = Math.PI/2; fer.position.x = -8; hg.add(fer);
+  const h = lathedHandle(hl, M('grafito')); h.rotation.z = Math.PI/2; h.position.x = -14; hg.add(h);
+  hg.position.y = t/2 + .6; hg.rotation.z = -.07; g.add(hg); return g;
+};
+B.rinconera = ({ext=false, F=60, t=3, len=120}={}) => {
+  const g = new THREE.Group(), holder = new THREE.Group();
+  holder.add(upright(shapeOf([[0,0],[F,0],[F,t],[t,t],[t,F],[0,F]]), len, M('acero'), .5)); holder.rotation.z = ext ? Math.PI*1.25 : Math.PI*.25; g.add(holder);
+  const h = closedHandle(len*.62, 44, 6, M('grafito')); h.rotation.y = Math.PI/2; h.position.y = ext ? 0 : t*Math.SQRT2; g.add(h); return g;
+};
+B.cove = ({R=25, F=35, t=4, len=120}={}) => {
+  const pts = [[R+F,0],[R,0]];
+  for (let k=1;k<=24;k++){ const a = (-90 - k*90/24)*Math.PI/180; pts.push([R + R*Math.cos(a), R + R*Math.sin(a)]); }
+  pts.push([0,R+F],[t,R+F],[t,R]);
+  for (let k=1;k<=24;k++){ const a = (180 + k*90/24)*Math.PI/180; pts.push([R + (R-t)*Math.cos(a), R + (R-t)*Math.sin(a)]); }
+  pts.push([R+F,t]);
+  const g = new THREE.Group(), holder = new THREE.Group(); holder.add(upright(shapeOf(dedupe(pts)), len, M('acero'), .5)); holder.rotation.z = Math.PI*.25; g.add(holder);
+  const h = closedHandle(len*.62, 44, 6, M('grafito')); h.rotation.y = Math.PI/2; h.position.y = R*Math.SQRT2 - (R - t) - .5; g.add(h); return g;
+};
+B.setModelado = () => {
+  const g = new THREE.Group();
+  const a = B.espatula({w:36, l:62, neck:12, r:17, t:1.6, hl:92}); a.position.z = -46;
+  const b = B.espatula({w:30, l:46, neck:14, r:3, t:1.6, hl:92}); b.position.set(10, 0, 0);
+  const c = B.espatula({w:16, l:62, neck:10, r:7, t:1.6, hl:92}); c.position.set(-6, 0, 46);
+  g.add(a, b, c); return g;
+};
+const ss = THREE.MathUtils.smoothstep;
+const PAT = {
+  piedra: (th, x) => { const n = Math.sin(3*th + 1.3*Math.sin(x*.07))*Math.sin(x*.13 + 1.1*Math.sin(2*th)) + .55*Math.sin(8*th + x*.23)*Math.sin(x*.29 - 5*th) + .25*Math.sin(17*th - x*.41); return 3.2*ss(n, -.15, .95); },
+  rayado: (th, x) => 2.6*ss(.5 + .5*Math.sin(x*2*Math.PI/8), .25, .7),
+  rombos: (th, x) => { const a = th*20/(2*Math.PI), b = x/7.85, fr = v => v - Math.floor(v), d = Math.abs(fr(a+b)-.5) + Math.abs(fr(a-b)-.5); return 2.4*ss(d, .62, .46); }
+};
+B.rodillo = ({pattern='piedra', color='hueso', pose=true}={}) => {
+  const R = 25, Lr = 180, g = new THREE.Group();
+  const geo = new THREE.CylinderGeometry(R, R, Lr, 200, 160, true); geo.rotateZ(Math.PI/2);
+  const pos = geo.attributes.position, fn = PAT[pattern];
+  for (let i=0;i<pos.count;i++){ const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i), th = Math.atan2(z, y), r0 = Math.hypot(y, z), k = (R - 1.5 + fn(th, x))/r0; pos.setY(i, y*k); pos.setZ(i, z*k); }
+  geo.computeVertexNormals(); g.add(mesh(geo, M(color)));
+  for (const s of [-1, 1]){
+    const cap = mesh(new THREE.CylinderGeometry(R-1.6, R-1.6, 2, 64), M('grafito')); cap.rotation.z = Math.PI/2; cap.position.x = s*(Lr/2 - .5); g.add(cap);
+    const hub = mesh(new THREE.CylinderGeometry(7, 7, 8, 32), M('bronce')); hub.rotation.z = Math.PI/2; hub.position.x = s*(Lr/2 + 4); g.add(hub);
+  }
+  const fp = [[-Lr/2-8,0,0],[-Lr/2-20,0,0],[-Lr/2-26,26,0],[-Lr/2-14,62,0],[-46,104,0],[0,126,0],[0,146,0]].map(p => new V3(...p));
+  g.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(fp, false, 'centripetal'), 120, 3.6, 16, false), M('acero')));
+  const h = lathedHandle(120, M('grafito'), 13); h.position.y = 142; g.add(h);
+  if (pose){ g.rotation.x = -.55; g.rotation.y = .25; }
+  return g;
+};
+B.sello = () => {
+  const g = new THREE.Group(), Wd = 250, D = 136;
+  const base = mesh(new THREE.BoxGeometry(Wd, 10, D), M('grafito')); base.position.y = 5; g.add(base);
+  const pg = new THREE.PlaneGeometry(Wd-2, D-2, 500, 272); pg.rotateX(-Math.PI/2);
+  const pos = pg.attributes.position;
+  for (let i=0;i<pos.count;i++){
+    const x = pos.getX(i), z = pos.getZ(i), zz = z + D/2, row = Math.floor(zz/68), zr = zz - row*68, dz = Math.min(zr - 8, 68 - zr), xo = (row % 2) ? 64 : 0, xx = ((x + Wd/2 + xo) % 128 + 128) % 128, dx = Math.min(xx - 8, 128 - xx), d = Math.min(dz, dx);
+    pos.setY(i, 10 + (d <= 0 ? 0 : 5*ss(d, 0, 2.6) + .25*Math.sin(x*.21)*Math.sin(z*.17)));
+  }
+  pg.computeVertexNormals(); g.add(mesh(pg, M('piedra')));
+  const h = closedHandle(140, 40, 7, M('grafito')); h.rotation.x = Math.PI; g.add(h);
+  g.rotation.x = .42; return g;
+};
+B.escurridor = () => {
+  const g = new THREE.Group(), s = rrPath(0, 0, 240, 280, 18, THREE.Shape);
+  for (let c=0;c<5;c++) for (let r=0;r<9;r++) s.holes.push(rrPath(-84 + c*42, -110 + r*24, 30, 11, 5));
+  g.add(upright(s, 3.2, M('grafito'), .6));
+  for (const x of [-70, 70]){ const cp = [[x,128,0],[x,150,0],[x,160,-10],[x,152,-22],[x,132,-24]].map(p => new V3(...p)); g.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(cp), 60, 4.5, 14, false), M('grafito'))); }
+  const lip = mesh(new THREE.BoxGeometry(236, 6, 12), M('grafito')); lip.position.set(0, -137, 4); g.add(lip);
+  g.rotation.x = -.22; return g;
+};
+B.gancho = () => {
+  const pts = [[-40,-12],[-41,-26],[-28,-40],[-10,-36],[0,-18],[0,30],[0,90],[2,118],[18,136],[38,134],[48,116],[46,96]].map(([x,y]) => new V3(x,y,0));
+  const geo = new THREE.ExtrudeGeometry(rrPath(0, 0, 10, 8, 2.5, THREE.Shape), {steps:200, bevelEnabled:false, extrudePath:new THREE.CatmullRomCurve3(pts, false, 'centripetal')});
+  const g = new THREE.Group(); g.add(mesh(geo, M('grafito')));
+  const can = mesh(new THREE.TorusGeometry(26, 1.6, 10, 60, Math.PI), M('acero')); can.rotation.set(Math.PI, Math.PI/2, 0); can.position.set(-20, -62, 0); g.add(can);
+  g.rotation.y = -.5; return g;
+};
+B.piramides = () => {
+  const g = new THREE.Group(), geo = new THREE.ConeGeometry(30, 34, 3, 1); geo.translate(0, 17, 0);
+  [[-44,8,.3],[22,-26,1.4],[30,40,2.3]].forEach(([x,z,r]) => { const m = mesh(geo, M('hueso')); m.position.set(x, 0, z); m.rotation.y = r; g.add(m); });
+  return g;
+};
+B.abrelatas = () => {
+  const s = new THREE.Shape(); s.moveTo(-58, -13); s.lineTo(46, -13); s.lineTo(70, -6); s.quadraticCurveTo(76, -3, 74, 2); s.lineTo(70, 6); s.lineTo(46, 11); s.lineTo(-58, 13); s.absarc(-58, 0, 13, Math.PI/2, Math.PI*1.5, false);
+  s.holes.push(circlePath(-58, 0, 6.5));
+  const g = new THREE.Group(); g.add(flat(s, 4, M('acero'), .8));
+  const grip = flat(rrPath(-20, 0, 60, 18, 8, THREE.Shape), 2.5, M('grafito'), .6); grip.position.y = 5; g.add(grip);
+  g.rotation.y = .3; return g;
+};
+B.porta = () => {
+  const g = new THREE.Group();
+  g.add(upright(rrPath(0, 40, 320, 80, 8, THREE.Shape), 5, M('grafito'), .6));
+  const sh = rrPath(0, 0, 320, 64, 8, THREE.Shape); [-120,-60,0,60,120].forEach(x => sh.holes.push(rrPath(x, -6, 40, 9, 4)));
+  const shelf = flat(sh, 5, M('grafito'), .6); shelf.position.set(0, 70, 34); g.add(shelf);
+  for (const x of [-150, 150]){ const gs = upright(shapeOf([[0,0],[0,-36],[44,0]]), 6, M('grafito'), .4); gs.rotation.y = -Math.PI/2; gs.position.set(x, 70, 2); g.add(gs); }
+  const e1 = B.espatula({w:70, l:70, neck:26, hl:96}); e1.rotation.z = -Math.PI/2; e1.position.set(-60, 74, 40); g.add(e1);
+  const e2 = B.espatula({w:56, l:55, neck:24, r:4, edge:{p:'square',pitch:6,depth:3,margin:4}, hl:96}); e2.rotation.z = -Math.PI/2; e2.position.set(60, 74, 40); g.add(e2);
+  return g;
+};
+B.crucetas = () => {
+  const g = new THREE.Group(), cross = (a, L=22) => { const h = a/2, q = L/2; return shapeOf([[-h,-q],[h,-q],[h,-h],[q,-h],[q,h],[h,h],[h,q],[-h,q],[-h,h],[-q,h],[-q,-h],[-h,-h]]); };
+  const set = [[2,'hueso'],[3,'piedra'],[5,'grafito']];
+  [[-30,-12,.2,0],[-6,-30,.9,1],[20,-10,.5,2],[-24,18,1.3,1],[6,10,.1,0],[30,22,.7,2],[-2,36,1.1,0],[40,-30,.35,1],[-44,40,.8,2]].forEach(([x,z,r,k]) => { const [a,col] = set[k]; const m = flat(cross(a, 22 + a*1.2), 6, M(col), .3); m.position.set(x, 0, z); m.rotation.y = r; g.add(m); });
+  return g;
+};
+B.cunas = () => {
+  const g = new THREE.Group(), s = shapeOf([[0,0],[75,0],[75,11],[0,1.5]]);
+  const one = () => { const w = new THREE.Group(); w.add(upright(s, 24, M('piedra'), .4)); const ang = Math.atan2(9.5, 75);
+    for (let i=0;i<4;i++){ const x = 44 + i*8, rib = mesh(new THREE.BoxGeometry(2.4, 1.6, 20), M('piedra')); rib.position.set(x, 1.5 + 9.5*x/75 + .6, 0); rib.rotation.z = ang; w.add(rib); } return w; };
+  const a = one(); a.position.set(-40, 0, -20); a.rotation.y = .2; const b = one(); b.position.set(-30, 0, 22); b.rotation.y = -.15; const c = one(); c.position.set(40, 0, 4); c.rotation.y = Math.PI + .1;
+  g.add(a, b, c); return g;
+};
+B.portahilo = () => {
+  const g = new THREE.Group(), s = shapeOf([[0,0],[46,0],[46,11],[11,11],[11,36],[0,36]]);
+  const a = upright(s, 28, M('grafito'), .6); a.position.x = -120; g.add(a);
+  const b = upright(s, 28, M('grafito'), .6); b.rotation.y = Math.PI; b.position.x = 120; g.add(b);
+  const str = mesh(new THREE.CylinderGeometry(.9, .9, 230, 8), M('bronce')); str.rotation.z = Math.PI/2; str.position.y = 30; g.add(str);
+  g.rotation.y = .45; return g;
+};
+B.separador = () => {
+  const g = new THREE.Group(), pts = [];
+  for (let i=0;i<240;i++){ const a = i/240*Math.PI*2, r = 33 + 3*Math.pow(.5 + .5*Math.cos(12*a), 3); pts.push([r*Math.cos(a), r*Math.sin(a)]); }
+  const s = shapeOf(pts); s.holes.push(circlePath(0, 0, 5.4)); for (let k=0;k<6;k++){ const a = k/6*Math.PI*2 + Math.PI/6; s.holes.push(circlePath(19*Math.cos(a), 19*Math.sin(a), 7.5)); }
+  for (const z of [-62, 62]){ const w = upright(s, 7, M('piedra'), .6); w.position.z = z; g.add(w); }
+  const rebar = mesh(new THREE.CylinderGeometry(5, 5, 240, 24), M('hierro')); rebar.rotation.x = Math.PI/2; g.add(rebar);
+  for (let z=-114; z<=114; z+=12){ const ring = mesh(new THREE.TorusGeometry(5.1, .9, 6, 24), M('hierro')); ring.position.z = z; ring.rotation.y = .2; g.add(ring); }
+  g.rotation.y = .6; return g;
+};
+B.junteador = () => {
+  const pts = [[-7,4],[-7,0]]; for (let k=1;k<24;k++){ const a = Math.PI + k/24*Math.PI; pts.push([7*Math.cos(a), 7*Math.sin(a)]); } pts.push([7,0],[7,4]);
+  const g = new THREE.Group(), bar = upright(shapeOf(pts), 170, M('acero'), .5); bar.position.y = 7; g.add(bar);
+  const h = closedHandle(110, 40, 6, M('grafito')); h.rotation.y = Math.PI/2; h.position.y = 11; g.add(h);
+  g.rotation.y = .9; return g;
+};
+const build = p => B[p.model.b](p.model.o || {});
+const VIEW = {escurridor:[.75,.3,1.35], gancho:[.6,.22,1.4], porta:[.65,.4,1.3], rodillo:[1,.62,1.25], sello:[.4,.85,1.3], separador:[1,.5,1.2], portahilo:[.7,.55,1.3], rinconera:[1,.5,1.25], cove:[1,.5,1.25]};
+
+/* ================= Estudio fotográfico ================= */
+function studio(){
+  const R = new THREE.WebGLRenderer({antialias:true, alpha:true, preserveDrawingBuffer:true});
+  R.outputColorSpace = THREE.SRGBColorSpace; R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = 1.0;
+  R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap; R.setPixelRatio(1);
+  const scene = new THREE.Scene(), pm = new THREE.PMREMGenerator(R); scene.environment = pm.fromScene(new RoomEnvironment(), .04).texture;
+  const persp = new THREE.PerspectiveCamera(24, .8, .01, 100), ortho = new THREE.OrthographicCamera(-1, 1, 1, -1, .01, 100);
+  const key = new THREE.DirectionalLight(0xfff6ec, 2.1); key.castShadow = true; key.shadow.mapSize.set(2048, 2048); key.shadow.bias = -.0004; key.shadow.normalBias = .01;
+  scene.add(key, key.target);
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(1,1).rotateX(-Math.PI/2), new THREE.ShadowMaterial({opacity:.16})); ground.receiveShadow = true; scene.add(ground);
+  const dispose = o => o.traverse(m => m.geometry && m.geometry.dispose()), tile = new THREE.Color('#E3E1DB');
+  function light(target, rad, dir){ key.position.copy(target).add(new V3(...dir).normalize().multiplyScalar(rad*4)); key.target.position.copy(target); const c = key.shadow.camera; c.left = c.bottom = -rad*1.5; c.right = c.top = rad*1.5; c.near = rad*.3; c.far = rad*10; c.updateProjectionMatrix(); ground.scale.setScalar(rad*12); }
+  function photo(obj, dir=[.9,.62,1.25], w=720, h=900){
+    obj.scale.setScalar(MM); obj.updateMatrixWorld(true);
+    const box = new THREE.Box3().setFromObject(obj), c = box.getCenter(new V3()); obj.position.set(-c.x, -box.min.y, -c.z); obj.updateMatrixWorld(true);
+    const size = box.getSize(new V3()), rad = size.length()/2, target = new V3(0, size.y*.42, 0);
+    persp.aspect = w/h; const fit = Math.min(1, persp.aspect), dist = rad/Math.sin(THREE.MathUtils.degToRad(persp.fov/2))/fit*1.04;
+    persp.position.copy(target).addScaledVector(new V3(...dir).normalize(), dist); persp.near = dist/60; persp.far = dist*12; persp.lookAt(target); persp.updateProjectionMatrix();
+    light(target, rad, [-.6, 1.5, .55]); scene.background = tile; M('acero').envMapIntensity = 1.9; scene.add(obj); R.setSize(w, h, false); R.render(scene, persp); scene.remove(obj); scene.background = null;
+  }
+  // vista cenital a escala: el borde de trabajo en x = 0 y la franja centrada en z = 0
+  function sprite(obj, pxmm=3){
+    obj.updateMatrixWorld(true);
+    const box = new THREE.Box3().setFromObject(obj), m = 40*MM;
+    const l = box.min.x - m, r = box.max.x + m*1.6, zt = box.min.z - m, zb = box.max.z + m*1.6;
+    Object.assign(ortho, {left:l, right:r, top:-zt, bottom:-zb}); ortho.position.set(0, 20, 0); ortho.up.set(0, 0, -1); ortho.lookAt(0, 0, 0); ortho.updateProjectionMatrix();
+    const rad = Math.max(r - l, zb - zt); light(new V3(0,0,0), rad, [-.5, 1.4, -.45]);
+    const w = Math.round((r - l)/MM*pxmm), h = Math.round((zb - zt)/MM*pxmm);
+    M('acero').envMapIntensity = .22; scene.add(obj); R.setSize(w, h, false); R.render(scene, ortho); scene.remove(obj); M('acero').envMapIntensity = 1;
+    const c = document.createElement('canvas'); c.width = w; c.height = h; c.getContext('2d').drawImage(R.domElement, 0, 0);
+    return {img:c, pxmm, ex: -l/MM*pxmm, ey: -zt/MM*pxmm};
+  }
+  return {R, photo, sprite, dispose};
+}
+
+async function runStudio(){
+  const S = studio(), frame = () => new Promise(r => requestAnimationFrame(() => r()));
+  const wrap = (obj, fn) => { const g = new THREE.Group(); obj.scale.setScalar(MM); fn(obj); g.add(obj); return g; };
+  const llanaSprite = k => wrap(B.llana({edges:{bottom:T.EDGE[k]}, plate: k === 'media' || k === 'v' ? 'hueso' : 'acero'}), o => { o.rotation.y = -Math.PI/2; o.position.x = 60*MM; });
+  const jobs = [
+    ['espatula', () => wrap(B.espatula({w:250, l:95, neck:44, t:2, r:12, hl:120}), o => { o.position.x = -95*MM; })],
+    ...['ondas','media','rayado','peine','v'].map(k => [k, () => llanaSprite(k)]),
+    ['piedra', () => { const g = new THREE.Group(), inner = new THREE.Group(), outer = new THREE.Group(); const r = B.rodillo({pattern:'piedra', pose:false}); r.scale.setScalar(MM); inner.add(r); inner.rotation.y = Math.PI/2; outer.add(inner); outer.rotation.z = 1.15; outer.position.y = 25*MM; g.add(outer); return g; }]
+  ];
+  for (const [k, mk] of jobs){ const o = mk(); T.sprites[k] = S.sprite(o); S.dispose(o); }
+  T.redrawSweeps();
+  await frame();
+  for (const p of T.PRODUCTS){
+    const o = build(p); S.photo(o, VIEW[p.model.b]);
+    const url = await new Promise(res => S.R.domElement.toBlob(b => res(b ? URL.createObjectURL(b) : S.R.domElement.toDataURL()), 'image/jpeg', .9));
+    S.dispose(o); T.setThumb(p.ref, url); await frame();
+  }
+}
+
+/* ================= Hero: la llana peina el enduido mientras bajás ================= */
+function hero(){
+  const canvas = document.getElementById('heroCanvas'), sec = document.getElementById('inicio'), cap = document.getElementById('heroCap');
+  const R = new THREE.WebGLRenderer({canvas, antialias:true});
+  R.outputColorSpace = THREE.SRGBColorSpace; R.toneMapping = THREE.ACESFilmicToneMapping; R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap;
+  const scene = new THREE.Scene(); scene.background = new THREE.Color('#D9D6CF');
+  scene.environment = new THREE.PMREMGenerator(R).fromScene(new RoomEnvironment(), .04).texture;
+  const camera = new THREE.PerspectiveCamera(32, 1, .1, 200);
+  const PW = 14, PD = 12, CW = 1120, CH = 960, pxu = 80;
+  const F = T.sweepFields(CW, CH, .8, {mode:'comb', tex:T.EDGE.ondas, band:260, bandC:CH/2, path:{amp:30, lam:520}, x0:-PW*50, seed:5});
+  const base = T.gray(F.base, CW, CH, 22), full = T.gray(F.full, CW, CH, 22);
+  const bump = document.createElement('canvas'); bump.width = CW; bump.height = CH; const bx = bump.getContext('2d'); bx.drawImage(base, 0, 0);
+  const tex = new THREE.CanvasTexture(bump); tex.colorSpace = THREE.NoColorSpace; tex.anisotropy = 8;
+  const mat = new THREE.MeshStandardMaterial({color:'#DCD9D2', roughness:.96, bumpMap:tex, bumpScale:13});
+  const plane = new THREE.Mesh(new THREE.PlaneGeometry(PW, PD).rotateX(-Math.PI/2), mat); plane.receiveShadow = true; scene.add(plane);
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 80).rotateX(-Math.PI/2), new THREE.MeshStandardMaterial({color:'#DCD9D2', roughness:.96})); floor.position.y = -.002; floor.receiveShadow = true; scene.add(floor);
+  const sun = new THREE.DirectionalLight(0xfff3e4, 3.0); sun.position.set(-3.6, 2.0, -5.8); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+  Object.assign(sun.shadow.camera, {left:-7, right:7, top:6, bottom:-6, near:.5, far:22}); sun.shadow.bias = -.0005; sun.shadow.normalBias = .02;
+  scene.add(sun, new THREE.HemisphereLight(0xffffff, 0xb9b3a7, .5));
+  const tool = B.llana({edges:{bottom:T.EDGE.ondas}}); tool.scale.setScalar(MM); tool.rotation.y = -Math.PI/2; tool.position.x = .6;
+  const tilt = new THREE.Group(); tilt.add(tool); const outer = new THREE.Group(); outer.add(tilt); scene.add(outer);
+  const off = x => F.off((x + PW/2)*pxu)/pxu;
+  let X0 = -5, X1 = 3, cur = 0, lastC = -1, visible = true, clock = 0;
+  function resize(){
+    const w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return;
+    R.setPixelRatio(Math.min(devicePixelRatio, 1.75)); R.setSize(w, h, false);
+    const a = w/h, portrait = a < 1; camera.fov = portrait ? 40 : 30; camera.aspect = a;
+    const half = portrait ? 2.4 : Math.min(5.2, 2.6 + a*1.2), tv = Math.tan(THREE.MathUtils.degToRad(camera.fov/2)), d = half/(a*tv), e = THREE.MathUtils.degToRad(portrait ? 62 : 56);
+    const zt = portrait ? -1.5 : -1.15;
+    camera.position.set(.25, d*Math.sin(e), zt + d*Math.cos(e)); camera.lookAt(0, 0, zt); camera.updateProjectionMatrix();
+    X0 = -half - 1.6; X1 = half - 2.1;
+  }
+  new ResizeObserver(resize).observe(canvas); resize();
+  new IntersectionObserver(en => en.forEach(x => visible = x.isIntersecting)).observe(sec);
+  function place(x, lift, t){ const z = off(x), dz = (off(x + .01) - z)/.01; outer.position.set(x, lift, z); outer.rotation.y = -Math.atan(dz); tilt.rotation.z = .6 + .025*Math.sin(t*.0011) + lift*.4; }
+  T.tickers.push(dt => {
+    if (!visible) return; clock += dt;
+    const p = T.pinProgress(sec), target = .56 + .44*p; cur = reduced ? target : T.damp(cur, target, 3.2, dt);
+    const x = X0 + (X1 - X0)*Math.min(cur, 1), c = Math.max(0, Math.min(CW, Math.round((x + PW/2)*pxu)));
+    if (c !== lastC){ bx.drawImage(base, 0, 0); if (c > 0) bx.drawImage(full, 0, 0, c, CH, 0, 0, c, CH); tex.needsUpdate = true; lastC = c; }
+    place(x, ss(p, .82, 1)*.35, clock);
+    cap.style.opacity = (.35 + .65*ss(p, .55, .9)).toFixed(3);
+    R.render(scene, camera);
+  });
+}
+
+if (!webglOK()) document.querySelector('.hero .pin-inner').insertAdjacentHTML('afterbegin', '<div class="hero-fallback"></div>');
+else {
+  try { hero(); } catch(e){ console.error(e); }
+  runStudio().catch(e => console.error(e));
+}
+</script>
+</body><!--std-->
+</html><!--std-->
